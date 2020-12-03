@@ -3,6 +3,7 @@ import AppContext from '../context/AppContext';
 import Map from '../components/Map';
 import useGoogleAddress from '../hooks/useGoogleAddress';
 import '../styles/components/Success.css';
+import { Helmet } from 'react-helmet';
 
 const Success = () => {
   const { state } = useContext(AppContext);
@@ -10,6 +11,10 @@ const Success = () => {
   const location = useGoogleAddress(buyer[0].address);
 
   return (
+    <>
+    <Helmet>
+      <title>E-commerce Realizado</title>
+    </Helmet>
     <div className="Success">
       <div className="Success-content">
         <h2>{`${buyer.name}, Gracias por tu compra`}</h2>
@@ -19,7 +24,8 @@ const Success = () => {
         </div>
       </div>
     </div>
+    </>
   );
-}
+};
 
 export default Success;

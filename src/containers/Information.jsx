@@ -2,6 +2,7 @@ import React, { useRef, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import '../styles/components/Information.css';
+import { Helmet } from 'react-helmet'
 
 const Information = ({ history }) => {
   const { state, addToBuyer } = useContext(AppContext);
@@ -11,21 +12,25 @@ const Information = ({ history }) => {
   const handleSubmit = () => {
     const formData = new FormData(form.current);
     const buyer = {
-      'name': formData.get('name'),
-      'email': formData.get('email'),
-      'address': formData.get('address'),
-      'apto': formData.get('apto'),
-      'city': formData.get('city'),
-      'country': formData.get('country'),
-      'state': formData.get('state'),
-      'cp': formData.get('cp'),
-      'phone': formData.get('phone'),
-    }
+      name: formData.get('name'),
+      email: formData.get('email'),
+      address: formData.get('address'),
+      apto: formData.get('apto'),
+      city: formData.get('city'),
+      country: formData.get('country'),
+      state: formData.get('state'),
+      cp: formData.get('cp'),
+      phone: formData.get('phone'),
+    };
     addToBuyer(buyer);
     history.push('/checkout/payment');
-  }
+  };
 
   return (
+    <>
+    <Helmet>
+      <title>E-commerce Informacion</title>
+    </Helmet>
     <div className="Information">
       <div className="Information-content">
         <div className="Information-head">
@@ -46,16 +51,14 @@ const Information = ({ history }) => {
         </div>
         <div className="Information-buttons">
           <div className="Information-back">
-            <button type='button'>
-
-            <Link to="/checkout">
-              Regresar
-            </Link>
-
+            <button type="button">
+              <Link to="/checkout">Regresar</Link>
             </button>
           </div>
           <div className="Information-next">
-            <button type="button" onClick={handleSubmit}>Pagar</button>
+            <button type="button" onClick={handleSubmit}>
+              Pagar
+            </button>
           </div>
         </div>
       </div>
@@ -65,16 +68,14 @@ const Information = ({ history }) => {
           <div className="Information-item" key={item.title}>
             <div className="Information-element">
               <h4>{item.title}</h4>
-              <span>
-                $
-                {item.price}
-              </span>
+              <span>${item.price}</span>
             </div>
           </div>
         ))}
       </div>
     </div>
+    </>
   );
-}
+};
 
 export default Information;
